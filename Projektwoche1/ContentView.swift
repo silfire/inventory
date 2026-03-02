@@ -11,7 +11,7 @@ import SwiftData
 struct ContentView: View {
 	@Environment(\.modelContext) private var context
 
-	@Query(sort: \Inventory.title) private var inventories : [Inventory]
+	@Query(sort: \Item.title) private var inventories : [Item]
 
 	@State private var presentAddSheet : Bool = false
 
@@ -41,17 +41,17 @@ struct ContentView: View {
 		.animation(.default, value: inventories)
 		.sheet(isPresented: $presentAddSheet) {
 			NavigationStack {
-				AddInventoryView()
+				AddItemView()
 					.presentationDetents([.medium])
 			}
 		}
 
 		.onAppear {
 			guard inventories.isEmpty else { return }
-			context.insert(Inventory(title: "Harry Potter 1", count: 1))
-			context.insert(Inventory(title: "Harry Potter 2", count: 1))
-			context.insert(Inventory(title: "Harry Potter 3", count: 1))
-			context.insert(Inventory(title: "Harry Potter 4", count: 1))
+			context.insert(Item(title: "Harry Potter 1", count: 1))
+			context.insert(Item(title: "Harry Potter 2", count: 1))
+			context.insert(Item(title: "Harry Potter 3", count: 1))
+			context.insert(Item(title: "Harry Potter 4", count: 1))
 		}
     }
 
@@ -59,5 +59,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-		.modelContainer(for: [Inventory.self], inMemory: true)
+		.modelContainer(for: [Item.self], inMemory: true)
 }

@@ -1,5 +1,5 @@
 //
-//  AddInventoryView.swift
+//  AddItemView.swift
 //  Projektwoche1
 //
 //  Created by Ingo Kasprzak on 02.03.26.
@@ -8,15 +8,15 @@
 import SwiftUI
 import SwiftData
 
-struct AddInventoryView: View {
+struct AddItemView: View {
 	@Environment(\.dismiss) var dismiss
 	@Environment(\.modelContext) var context
 
-	@State private var inventory : Inventory = Inventory(title: "", count: 1)
+	@State private var items : Item = Item(title: "", count: 1)
 	@State private var sliderValue : Double = 1
     var body: some View {
 		Form {
-			TextField("Name", text: $inventory.title)
+			TextField("Name", text: $items.title)
 			VStack {
 				Text("Anzahl")
 				HStack {
@@ -30,8 +30,8 @@ struct AddInventoryView: View {
 			}
 			Section {
 				Button {
-					inventory.count = Int(sliderValue)
-					context.insert(inventory)
+					items.count = Int(sliderValue)
+					context.insert(items)
 					dismiss()
 				} label: {
 					Text("Hinzufügen")
@@ -44,7 +44,7 @@ struct AddInventoryView: View {
 
 #Preview {
 	NavigationStack {
-		AddInventoryView()
-			.modelContainer(for: [Inventory.self], inMemory: true)
+		AddItemView()
+			.modelContainer(for: [Item.self], inMemory: true)
 	}
 }
