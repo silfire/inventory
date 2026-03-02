@@ -9,9 +9,11 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-	@Environment(\.modelContext) var modelContext
+	@Environment(\.modelContext) private var context
 
-	@Query() var inventories : [Inventory]
+	@Query(sort: \Inventory.title) private var inventories : [Inventory]
+
+	@State private var presentAddSheet : Bool = false
 
 	var body: some View {
         NavigationStack {
@@ -20,22 +22,37 @@ struct ContentView: View {
 					Text(inventory.title)
 				}
 			}
+			.toolbar {
+				ToolbarItem {
+					Button {
+						presentAddSheet.toggle()
+					} label: {
+						Image(systemName: "plus")
+					}
+				}
+			}
+			.navigationTitle("Inventory")
         }
         .padding()
+		.sheet(isPresented: $presentAddSheet) {
+			NavigationStack {
+				AddInventoryView()
+					.presentationDetents([.medium])
+			}
+		}
 
 		.onAppear {
 			guard inventories.isEmpty else { return }
-			modelContext.insert(Inventory(title: "Harry Potter 1", count: 1))
-			modelContext.insert(Inventory(title: "Harry Potter 2", count: 1))
-			modelContext.insert(Inventory(title: "Harry Potter 3", count: 1))
-			modelContext.insert(Inventory(title: "Harry Potter 4", count: 1))
+			context.insert(Inventory(title: "Harry Potter 1", count: 1))
+			context.insert(Inventory(title: "Harry Potter 2", count: 1))
+			context.insert(Inventory(title: "Harry Potter 3", count: 1))
+			context.insert(Inventory(title: "Harry Potter 4", count: 1))
 		}
-
     }
+
 }
 
 #Preview {
-
     ContentView()
 		.modelContainer(for: [Inventory.self], inMemory: true)
 }
