@@ -1,0 +1,20 @@
+//
+//  Inventory.swift
+//  Projektwoche1
+//
+//  Created by Ingo Kasprzak on 02.03.26.
+//
+
+import Foundation
+import SwiftData
+
+@Model
+class Inventory {
+	var title : String
+	var count : Int
+
+	init(title: String, count: Int = 0) {
+		self.title = title
+		self.count = count
+	}
+}
