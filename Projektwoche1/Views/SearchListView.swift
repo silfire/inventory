@@ -9,20 +9,33 @@ import SwiftUI
 import SwiftData
 
 struct SearchListView: View {
-	@Environment(\.modelContext) private var context
-
-	@State var searchText : String = ""
-
-	var body: some View {
-		ContentUnavailableView("Search items", systemImage: "magnifyingglass")
-		.searchable(
-			text: $searchText,
-			placement: .automatic,
-			prompt: "Search items")
+    @Environment(\.modelContext) private var context
+    
+    @Query(sort: \Item.title) private var items : [Item]
+    @State private var filterResult: [Item] = []
+    @State private var searchText : String = ""
+    
+    var body: some View {
+        NavigationStack {
+            List {
+                ForEach (filterResult) { item in
+                    Text(item.title)
+                }
+            }
+            .searchable(
+                text: $searchText,
+                placement: .automatic,
+                prompt: "Search items")
+            .onChange(of: searchText) { _, _ in
+                filterResult = items.filter {item in
+                    item.title.localizedCaseInsensitiveContains(searchText)
+                }
+            }
+        }
     }
 }
 
 #Preview {
     SearchListView()
-		.modelContainer(DataProvider.preview.container)
+        .modelContainer(DataProvider.preview.container)
 }
