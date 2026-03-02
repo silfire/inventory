@@ -27,7 +27,7 @@ class DataProvider {
 	var mainContext : ModelContext { return self.container.mainContext }
 
 	private init(preview : Bool = false) {
-		let schema = Schema([Item.self])
+		let schema = Schema([Item.self, ItemType.self])
 
 		let config = ModelConfiguration("Inventory_Configuration", schema: schema, isStoredInMemoryOnly: preview)
 		do {
@@ -45,6 +45,10 @@ class DataProvider {
 		mainContext.insert(Item(title: "Harry Potter 2", count: 1))
 		mainContext.insert(Item(title: "Harry Potter 3", count: 1))
 		mainContext.insert(Item(title: "Harry Potter 4", count: 1))
+		mainContext.insert(ItemType(title: "Buch"))
+		mainContext.insert(ItemType(title: "Möbel"))
+		mainContext.insert(ItemType(title: "Hardware"))
+		mainContext.insert(ItemType(title: "Musik"))
 	}
 
 }

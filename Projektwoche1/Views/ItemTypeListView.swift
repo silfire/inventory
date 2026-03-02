@@ -11,8 +11,17 @@ import SwiftData
 struct ItemTypeListView: View {
 	@Environment(\.modelContext) private var context
 
+	@Query(sort: \ItemType.title) var itemTypes : [ItemType]
+
 	var body: some View {
-        ContentUnavailableView("Item Types", systemImage: "tag")
+		NavigationStack {
+			List {
+				ForEach(itemTypes) { itemType in
+					Text(itemType.title)
+				}
+			}
+			.navigationTitle("Item types")
+		}
     }
 }
 
