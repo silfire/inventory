@@ -45,6 +45,6 @@ struct AddItemView: View {
 #Preview {
 	NavigationStack {
 		AddItemView()
-			.modelContainer(for: [Item.self], inMemory: true)
+			.modelContainer(DataProvider.preview.container)
 	}
 }

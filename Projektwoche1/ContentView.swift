@@ -16,48 +16,22 @@ struct ContentView: View {
 	@State private var presentAddSheet : Bool = false
 
 	var body: some View {
-        NavigationStack {
-			List {
-				ForEach(inventories) { inventory in
-					Text(inventory.title)
-				}
-				.onDelete { indexSet in
-					for index in indexSet {
-						context.delete(inventories[index])
-					}
-				}
+		TabView {
+			Tab("Items", systemImage: "house") {
+				ItemListView()
 			}
-			.toolbar {
-				ToolbarItem {
-					Button {
-						presentAddSheet.toggle()
-					} label: {
-						Image(systemName: "plus")
-					}
-				}
-			}
-			.navigationTitle("Inventory")
-        }
-		.animation(.default, value: inventories)
-		.sheet(isPresented: $presentAddSheet) {
-			NavigationStack {
-				AddItemView()
-					.presentationDetents([.medium])
-			}
-		}
 
-		.onAppear {
-			guard inventories.isEmpty else { return }
-			context.insert(Item(title: "Harry Potter 1", count: 1))
-			context.insert(Item(title: "Harry Potter 2", count: 1))
-			context.insert(Item(title: "Harry Potter 3", count: 1))
-			context.insert(Item(title: "Harry Potter 4", count: 1))
+			Tab("Types", systemImage: "tag") {
+				ItemTypeListView()
+			}
+			Tab(role: .search) {
+				SearchListView()
+			}
 		}
     }
-
 }
 
 #Preview {
     ContentView()
-		.modelContainer(for: [Item.self], inMemory: true)
+		.modelContainer(DataProvider.preview.container)
 }
