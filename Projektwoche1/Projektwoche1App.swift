@@ -13,7 +13,7 @@ struct Projektwoche1App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-				.modelContainer(for: [Inventory.self], inMemory: true)
         }
+		.modelContainer(for: [Inventory.self], inMemory: true)
     }
 }

@@ -21,6 +21,11 @@ struct ContentView: View {
 				ForEach(inventories) { inventory in
 					Text(inventory.title)
 				}
+				.onDelete { indexSet in
+					for index in indexSet {
+						context.delete(inventories[index])
+					}
+				}
 			}
 			.toolbar {
 				ToolbarItem {
@@ -33,6 +38,7 @@ struct ContentView: View {
 			}
 			.navigationTitle("Inventory")
         }
+		.animation(.default, value: inventories)
         .padding()
 		.sheet(isPresented: $presentAddSheet) {
 			NavigationStack {
