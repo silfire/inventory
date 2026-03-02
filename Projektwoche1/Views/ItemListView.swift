@@ -11,19 +11,24 @@ import SwiftData
 struct ItemListView: View {
 	@Environment(\.modelContext) private var context
 
-	@Query(sort: \Item.title) private var inventories : [Item]
+	@Query(sort: \Item.title) private var items : [Item]
 
 	@State private var presentAddSheet : Bool = false
 
 	var body: some View {
 		NavigationStack {
 			List {
-				ForEach(inventories) { inventory in
-					Text(inventory.title)
+				ForEach(items) { item in
+					NavigationLink {
+						ItemDetailView(item: item)
+					} label: {
+						Text(item.title)
+					}
+
 				}
 				.onDelete { indexSet in
 					for index in indexSet {
-						context.delete(inventories[index])
+						context.delete(items[index])
 					}
 				}
 			}
@@ -42,7 +47,7 @@ struct ItemListView: View {
 			}
 			.navigationTitle("Inventory")
 		}
-		.animation(.default, value: inventories)
+		.animation(.default, value: items)
 		.sheet(isPresented: $presentAddSheet) {
 			NavigationStack {
 				AddItemView()
@@ -51,7 +56,7 @@ struct ItemListView: View {
 		}
 
 		.onAppear {
-			guard inventories.isEmpty else { return }
+			guard items.isEmpty else { return }
 		}
 	}
 }
