@@ -39,7 +39,6 @@ struct ContentView: View {
 			.navigationTitle("Inventory")
         }
 		.animation(.default, value: inventories)
-        .padding()
 		.sheet(isPresented: $presentAddSheet) {
 			NavigationStack {
 				AddInventoryView()
