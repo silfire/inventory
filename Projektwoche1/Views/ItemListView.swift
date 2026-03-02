@@ -28,6 +28,10 @@ struct ItemListView: View {
 				}
 			}
 			.toolbar {
+				ToolbarItem(placement: .topBarLeading) {
+					Button {} label: { Image(systemName: "gearshape")}
+				}
+
 				ToolbarItem {
 					Button {
 						presentAddSheet.toggle()
