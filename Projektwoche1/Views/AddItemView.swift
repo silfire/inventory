@@ -11,12 +11,24 @@ import SwiftData
 struct AddItemView: View {
 	@Environment(\.dismiss) var dismiss
 	@Environment(\.modelContext) var context
+    
+    @Query var itemTypes: [ItemType]
 
 	@State private var items : Item = Item(title: "", count: 1)
 	@State private var sliderValue : Double = 1
+    
+    @State private var selectedCategory : ItemType?
+    
     var body: some View {
 		Form {
 			TextField("Name", text: $items.title)
+            
+            Picker("Kategorie", selection: $selectedCategory) {
+                ForEach(itemTypes) { category in
+                    Text(category.title).tag(category)
+                }
+            }
+            
 			VStack {
 				Text("Anzahl")
 				HStack {

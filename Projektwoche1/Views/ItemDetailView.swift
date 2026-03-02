@@ -11,10 +11,30 @@ import SwiftData
 struct ItemDetailView: View {
 	@Environment(\.modelContext) var context
 
-	@State var item : Item
+    @State var item : Item = Item(title: "", count: 1)
+    
+    // ToDo: ItemType verbinden
+    @State var itemCategory: String = "Books"
+    let categories: [String] = ["Books", "Electronics", "Clothing"]
 
-	var body: some View {
-		ContentUnavailableView("Item Details", systemImage: "folder")
+    
+    var body: some View {
+        VStack {
+            Text(item.title)
+                .font(.largeTitle)
+                .bold(true)
+            Form {
+                TextField("Title", text: $item.title)
+                Stepper(value: $item.count, in: 0...100) {
+                    Text("Quantity: \(item.count)")
+                }
+                Picker("Category", selection: $itemCategory) {
+                    ForEach(categories, id: \.self) {
+                        category in Text(category).tag(category)
+                    }
+                }
+            }
+        }
     }
 }
 
