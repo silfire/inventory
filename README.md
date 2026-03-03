@@ -3,14 +3,14 @@
 Eine einfache Gegenstandsverwaltung für den Haushalt 
 
 #### Aktuelle Aufgabenverteilung:
-- Domenik: SettingsView
-- Kevin: ItemDetailView
-- Daniel: SearchListView
-- Nicolas: UML, Struktur, Klassifizierungen
-- Ingo: Basis-Projektcode und -pflege, sowie Feinschliff
+- __Domenik__: `SettingsView`
+- __Kevin__: `ItemDetailView`
+- __Daniel__: `SearchListView`
+- __Nicolas__: UML, Struktur, Klassifizierungen
+- __Ingo__: Basis-Projektcode und -pflege, sowie Feinschliff
 
 #### Offene ToDos:
-- Relationship 1:∞ ItemType 1->∞ Item
+- `@Relationship` ItemType 1->∞ Item
 - `ItemTypes` anlegen und ändern
 - Views an Buttons und Navigation anbinden
 - Bilder/Foto Property zu `Item` hinzufügen
@@ -26,7 +26,7 @@ Eine einfache Gegenstandsverwaltung für den Haushalt
 #### Struktur der App:
 Mit der App kann man Gegenstände im Haushalt verwalten. Die Gegenstände kann man frei kategorisieren.
 
-#### Struktur des Codes:
+#### View-Struktur des Codes:
 - `ContenView` mit TabBar
   - `ItemListView` (Gegenstände)
     - `ItemDetailView` per NavigationLink
@@ -34,8 +34,12 @@ Mit der App kann man Gegenstände im Haushalt verwalten. Die Gegenstände kann m
     - `SettingsView` per Toolbar-Button
   - `ÌtemTypeListView` (Kategorien)
   - `SearchListView` (Gegenstandssuche)
+  
+- SubViews:
+  - `ItemCellView` - View für `Item`-Models in einer `List`, z.B. im `ItemListView` oder `SearchListView`
 
-#### SwiftData:
-- `Item` (Gegenstand)
-- `ItemType` (Kategorie)
+#### Models:
 - `DataProvider`: Singleton, stellt den ModelContainer als `.shared` oder `.preview` (inMemory) bereit
+- `@Model` `Item` (Gegenstand)
+- `@Model` `ItemType` (Kategorie)
+- SortOrder: `SortCriteria`und `SortDirection` enums

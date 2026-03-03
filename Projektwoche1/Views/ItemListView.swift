@@ -24,15 +24,15 @@ struct ItemListView: View {
 					NavigationLink {
 						ItemDetailView(item: item)
 					} label: {
-						Text(item.title)
+						ItemCellView(item: item)
 					}
-
 				}
 				.onDelete { indexSet in
 					for index in indexSet {
 						context.delete(items[index])
 					}
 				}
+				.listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
 			}
 			.toolbar {
 				ToolbarItem(placement: .topBarLeading) {

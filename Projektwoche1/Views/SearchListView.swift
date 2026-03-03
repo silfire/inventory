@@ -16,11 +16,14 @@ struct SearchListView: View {
     @State private var searchText : String = ""
     
     var body: some View {
+		// TODO: Navigation Title
         NavigationStack {
             List {
+				// TODO: Navigation Link to Item details
                 ForEach (filterResult) { item in
-                    Text(item.title)
+					ItemCellView(item: item)
                 }
+				// TODO: .onDelete
             }
             .searchable(
                 text: $searchText,
