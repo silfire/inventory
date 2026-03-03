@@ -11,9 +11,9 @@ struct SettingsView: View {
     
     // MARK: - Properties
 
-	// TODO: Einstellungen über AppStorage/UserDefaults persistent machen
-    @State private var selectedCriterion: SortCriteria = .alphabetical
-    @State private var selectedDirection: SortDirection = .ascending
+	
+    @AppStorage("sortCriterion") private var selectedCriterion: SortCriteria = .alphabetical
+    @AppStorage("sortDirection") private var selectedDirection: SortDirection = .ascending
     @State private var showDeleteConfirmation = false
     
     // MARK: - Body

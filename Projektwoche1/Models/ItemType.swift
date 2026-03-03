@@ -10,9 +10,11 @@ import SwiftData
 
 @Model
 class ItemType {
-	var title : String
+    var title : String
 
-	init(title: String = "") {
-		self.title = title
-	}
+    @Relationship(inverse: \Item.type) var items: [Item] = []
+
+    init(title: String = "") {
+        self.title = title
+    }
 }
