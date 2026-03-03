@@ -17,7 +17,7 @@ struct ItemTypeListView: View {
 		NavigationStack {
 			List {
 				ForEach(itemTypes) { itemType in
-					Text(itemType.title)
+					ItemTypeCellView(itemType: itemType)
 				}
 			}
 			.toolbar {

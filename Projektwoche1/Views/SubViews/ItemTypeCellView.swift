@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct SkillItemView: View {
+struct ItemTypeCellView: View {
 	@Environment(\.modelContext) private var context
 
 	@State var itemType: ItemType
@@ -55,7 +55,7 @@ struct SkillItemView: View {
 
 #Preview {
 	List {
-		SkillItemView(itemType: ItemType(title: "Gerät"))
+		ItemTypeCellView(itemType: ItemType(title: "Gerät"))
 			.modelContainer(DataProvider.preview.container)
 	}
 }
