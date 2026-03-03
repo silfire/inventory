@@ -10,11 +10,16 @@ import SwiftData
 
 @Model
 class Item {
-	var title : String
-	var count : Int
+    var title : String
+    var count : Int
+    var date: Date
 
-	init(title: String, count: Int = 0) {
-		self.title = title
-		self.count = count
-	}
+    @Relationship var type: ItemType?
+    
+    init(title: String, count: Int = 0) {
+        self.title = title
+        self.count = count
+        self.date = .now
+        self.type = nil
+    }
 }
