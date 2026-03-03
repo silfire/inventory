@@ -13,10 +13,14 @@ Eine einfache Gegenstandsverwaltung für den Haushalt
 - Relationship 1:∞ ItemType 1->∞ Item
 - `ItemTypes` anlegen und ändern
 - Views an Buttons und Navigation anbinden
+- Bilder/Foto Property zu `Item` hinzufügen
+- Bilder verwaltbar machen
+- Anzeige der Summe aller Gegenstände im `ItemListView`
 
 #### Vorschläge und Ideen
 - zusätzliches 1:∞ Model für den Lagerort, also sowas wie "Wohnzimmer", "Küche",…
-- Schwebende "Liquid Glass" Bedienelemente?
+- Statistik-Dashboard mit Kreisdiagramm, um Verteilung der Gegenstände nach Kategorien anzuzeigen
+- Schwebende "Liquid Glass" Bedienelemente
 
 #### Struktur der App:
 Mit der App kann man Gegenstände im Haushalt verwalten. Die Gegenstände kann man frei kategorisieren.
