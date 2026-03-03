@@ -76,7 +76,7 @@ struct ItemListView: View {
 					}
 				}
 			}
-			.navigationTitle("Inventory")
+			.navigationTitle("Inventarlistenanzeige")
 		}
 		.animation(.default, value: items)
 		.sheet(isPresented: $presentAddSheet) {
