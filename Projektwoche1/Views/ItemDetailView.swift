@@ -13,8 +13,10 @@ struct ItemDetailView: View {
 
     @State var item : Item = Item(title: "", count: 1)
     
-    // ToDo: ItemType verbinden
+    // TODO: ItemType verbinden
     @State var itemCategory: String = "Books"
+
+	// TODO: ItemType Model für Kategorien verwenden
     let categories: [String] = ["Books", "Electronics", "Clothing"]
 
     

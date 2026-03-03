@@ -10,7 +10,8 @@ import SwiftUI
 struct SettingsView: View {
     
     // MARK: - Properties
-    
+
+	// TODO: Einstellungen über AppStorage/UserDefaults persistent machen
     @State private var selectedCriterion: SortCriteria = .alphabetical
     @State private var selectedDirection: SortDirection = .ascending
     @State private var showDeleteConfirmation = false
@@ -46,6 +47,7 @@ struct SettingsView: View {
         } header: {
             Text("Sortierung")
         }
+		// TODO: Toolbar-Button, um Einstellungen wieder zu schliessen
     }
     
     // MARK: - Data Section

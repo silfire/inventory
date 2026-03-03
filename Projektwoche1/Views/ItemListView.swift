@@ -11,9 +11,11 @@ import SwiftData
 struct ItemListView: View {
 	@Environment(\.modelContext) private var context
 
+	// TODO: Items entsprechend der Settings sortieren
 	@Query(sort: \Item.title) private var items : [Item]
 
 	@State private var presentAddSheet : Bool = false
+	@State private var presentSettingsSheet : Bool = false
 
 	var body: some View {
 		NavigationStack {
@@ -34,7 +36,9 @@ struct ItemListView: View {
 			}
 			.toolbar {
 				ToolbarItem(placement: .topBarLeading) {
-					Button {} label: { Image(systemName: "gearshape")}
+					Button {
+						presentSettingsSheet.toggle()
+					} label: { Image(systemName: "gearshape")}
 				}
 
 				ToolbarItem {
@@ -51,6 +55,12 @@ struct ItemListView: View {
 		.sheet(isPresented: $presentAddSheet) {
 			NavigationStack {
 				AddItemView()
+					.presentationDetents([.medium])
+			}
+		}
+		.sheet(isPresented: $presentSettingsSheet) {
+			NavigationStack {
+				SettingsView()
 					.presentationDetents([.medium])
 			}
 		}
