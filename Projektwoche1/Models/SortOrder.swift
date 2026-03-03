@@ -13,7 +13,7 @@ enum SortCriteria: String, CaseIterable {
     case alphabetical = "alphabetical"
     case location     = "location"
     case date         = "date"
-    case categrory    = "category"
+    case category    = "category"
     case amount       = "amount"
     
     var displayName: String {
@@ -21,7 +21,7 @@ enum SortCriteria: String, CaseIterable {
         case .alphabetical: return "Alphabetisch"
         case .location:     return "Ort"
         case .date:         return "Datum"
-        case .categrory:    return "Kategorie"
+        case .category:    return "Kategorie"
         case .amount:       return "Betrag"
         }
     }
