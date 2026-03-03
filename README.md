@@ -34,6 +34,7 @@ Mit der App kann man Gegenstände im Haushalt verwalten. Die Gegenstände kann m
     - `SettingsView` per Toolbar-Button
   - `ÌtemTypeListView` (Kategorien)
   - `SearchListView` (Gegenstandssuche)
+Zusätzlich gibt es den `ItemCellView`, der ein einzelnes `Item` in einer SwiftUI `List` darstellt, z.B. im `ItemListView` oder `SearchListView`
 
 #### SwiftData:
 - `Item` (Gegenstand)
