@@ -43,9 +43,6 @@ struct ItemTypeCellView: View {
 		.onChange(of: hasFocus, initial: false) { _, newValue in
 			if newValue == false {
 				itemType.title = input
-				if context.hasChanges {
-					try? context.save()
-				}
 				showTextField = false
 			}
 		}
