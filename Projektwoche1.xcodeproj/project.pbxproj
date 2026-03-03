@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		1E0DB4142F56C114002579E1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DB8A47BD2D43AFD3001C2B3B /* Projektwoche1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Projektwoche1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -32,6 +33,7 @@
 		DB8A47B42D43AFD2001C2B3B = {
 			isa = PBXGroup;
 			children = (
+				1E0DB4142F56C114002579E1 /* README.md */,
 				DB8A47BF2D43AFD3001C2B3B /* Projektwoche1 */,
 				DB8A47BE2D43AFD3001C2B3B /* Products */,
 			);
