@@ -26,7 +26,7 @@ Eine einfache Gegenstandsverwaltung für den Haushalt
 #### Struktur der App:
 Mit der App kann man Gegenstände im Haushalt verwalten. Die Gegenstände kann man frei kategorisieren.
 
-#### Struktur des Codes:
+#### View-Struktur des Codes:
 - `ContenView` mit TabBar
   - `ItemListView` (Gegenstände)
     - `ItemDetailView` per NavigationLink
@@ -34,9 +34,12 @@ Mit der App kann man Gegenstände im Haushalt verwalten. Die Gegenstände kann m
     - `SettingsView` per Toolbar-Button
   - `ÌtemTypeListView` (Kategorien)
   - `SearchListView` (Gegenstandssuche)
-Zusätzlich gibt es den `ItemCellView`, der ein einzelnes `Item` in einer SwiftUI `List` darstellt, z.B. im `ItemListView` oder `SearchListView`
+  
+- SubViews:
+  - `ItemCellView` - View für `Item`-Models in einer `List`, z.B. im `ItemListView` oder `SearchListView`
 
-#### SwiftData:
-- `Item` (Gegenstand)
-- `ItemType` (Kategorie)
+#### Models:
 - `DataProvider`: Singleton, stellt den ModelContainer als `.shared` oder `.preview` (inMemory) bereit
+- @Model `Item` (Gegenstand)
+- @Model `ItemType` (Kategorie)
+- SortOrder: `SortCriteria`und `SortDirection` enums
