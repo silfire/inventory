@@ -34,6 +34,7 @@ struct SearchListView: View {
                     item.title.localizedCaseInsensitiveContains(searchText)
                 }
             }
+			.animation(.default, value: filterResult)
         }
     }
 }

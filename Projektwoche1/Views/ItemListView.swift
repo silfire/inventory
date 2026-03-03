@@ -26,20 +26,21 @@ struct ItemListView: View {
 
     private var sortedItems: [Item] {
         items.sorted { (first: Item, second: Item) -> Bool in
-            let ascending = sortDirection == .ascending
-            
-            switch sortCriterion {
-            case .alphabetical:
-                return ascending ? first.name < second.name : first.name > second.name
-            case .location:
-                return ascending ? (first.location ?? "") < (second.location ?? "") : (first.location ?? "") > (second.location ?? "")
-            case .date:
-                return ascending ? first.createdAt < second.createdAt : first.createdAt > second.createdAt
-            case .category:
-                return ascending ? (first.category?.name ?? "") < (second.category?.name ?? "") : (first.category?.name ?? "") > (second.category?.name ?? "")
-            case .amount:
-                return ascending ? first.quantity < second.quantity : first.quantity > second.quantity
-            }
+			first.title < second.title
+//            let ascending = sortDirection == .ascending
+//            
+//            switch sortCriterion {
+//            case .alphabetical:
+//                return ascending ? first.name < second.name : first.name > second.name
+//            case .location:
+//                return ascending ? (first.location ?? "") < (second.location ?? "") : (first.location ?? "") > (second.location ?? "")
+//            case .date:
+//                return ascending ? first.createdAt < second.createdAt : first.createdAt > second.createdAt
+//            case .category:
+//                return ascending ? (first.category?.name ?? "") < (second.category?.name ?? "") : (first.category?.name ?? "") > (second.category?.name ?? "")
+//            case .amount:
+//                return ascending ? first.quantity < second.quantity : first.quantity > second.quantity
+//            }
         }
     }
     

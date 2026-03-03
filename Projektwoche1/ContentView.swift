@@ -22,7 +22,7 @@ struct ContentView: View {
 			}
 
 			Tab("Types", systemImage: "tag") {
-				ItemTypeListView()
+				CategoryListView()
 			}
 			Tab(role: .search) {
 				SearchListView()

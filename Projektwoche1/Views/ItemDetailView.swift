@@ -27,8 +27,8 @@ struct ItemDetailView: View {
                 .bold(true)
             Form {
                 TextField("Title", text: $item.title)
-                Stepper(value: $item.count, in: 0...100) {
-                    Text("Quantity: \(item.count)")
+                Stepper(value: $item.quantity, in: 0...100) {
+                    Text("Quantity: \(item.quantity)")
                 }
                 Picker("Category", selection: $itemCategory) {
                     ForEach(categories, id: \.self) {

@@ -1,5 +1,5 @@
 //
-//  ItemTypeCellView.swift
+//  CategoryCellView.swift
 //  Projektwoche1
 //
 //  Created by Ingo Kasprzak on 03.03.26.
@@ -8,10 +8,10 @@
 import SwiftUI
 import SwiftData
 
-struct ItemTypeCellView: View {
+struct CategoryCellView: View {
 	@Environment(\.modelContext) private var context
 
-	@State var itemType: ItemType
+	@State var category: Category
 
 	@FocusState private var hasFocus : Bool
 	@State private var showTextField : Bool = false
@@ -19,16 +19,16 @@ struct ItemTypeCellView: View {
 
 	var body: some View {
 		HStack {
-			if showTextField || itemType.title.isEmpty {
+			if showTextField || category.title.isEmpty {
 				TextField("Name eingeben", text: $input)
 					.focused($hasFocus)
 			} else {
 				Button {
-					self.input = itemType.title
+					self.input = category.title
 					showTextField = true
 				} label: {
 					HStack {
-						Text(itemType.title)
+						Text(category.title)
 						Spacer()
 					}
 				}
@@ -42,7 +42,7 @@ struct ItemTypeCellView: View {
 		}
 		.onChange(of: hasFocus, initial: false) { _, newValue in
 			if newValue == false {
-				itemType.title = input
+				category.title = input
 				showTextField = false
 			}
 		}
@@ -52,7 +52,7 @@ struct ItemTypeCellView: View {
 
 #Preview {
 	List {
-		ItemTypeCellView(itemType: ItemType(title: "Gerät"))
+		CategoryCellView(category: Category(title: "Gerät"))
 			.modelContainer(DataProvider.preview.container)
 	}
 }
