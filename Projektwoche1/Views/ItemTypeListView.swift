@@ -20,6 +20,16 @@ struct ItemTypeListView: View {
 					Text(itemType.title)
 				}
 			}
+			.toolbar {
+				ToolbarItem {
+					Button {
+						// TODO: add new Item Type
+					} label: {
+						Image(systemName: "plus")
+					}
+				}
+			}
+			// TODO: on Delete
 			.navigationTitle("Item types")
 		}
     }
