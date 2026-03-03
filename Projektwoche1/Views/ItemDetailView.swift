@@ -17,12 +17,7 @@ struct ItemDetailView: View {
     @State private var selectedImage : PhotosPickerItem? = nil
     @State private var uiImage : UIImage? = nil
     
-    // TODO: ItemType verbinden
-    @State var itemCategory: String = "Books"
-
-	// TODO: ItemType Model für Kategorien verwenden
-    let categories: [String] = ["Books", "Electronics", "Clothing"]
-
+    @Query(sort: \Category.title) var categories: [Category]
     
     var body: some View {
         VStack {
@@ -44,32 +39,36 @@ struct ItemDetailView: View {
                                         .foregroundStyle(.gray)
                                 }
                             }
-                            .scaledToFit()
+                            .scaledToFill()
                             .clipShape(RoundedRectangle(cornerRadius: 20))
-                            .overlay(
-                                PhotosPicker(selection: $selectedImage, matching: .images) {
-                                }
-                            )
+                            
+                            PhotosPicker(selection: $selectedImage, matching: .images) {
+                                Image(systemName: "pencil.circle.fill")
+                                    .background(Color.white.clipShape(Circle()))
+                                    .offset(x: 10, y: -10)
+                            }
                         }
                     }
                 }
+                .listRowBackground(Color.clear)
                 
                 TextField("Title", text: $item.title)
+                
                 Stepper(value: $item.quantity, in: 0...100) {
                     Text("Quantity: \(item.quantity)")
                 }
-                Picker("Category", selection: $itemCategory) {
-                    ForEach(categories, id: \.self) {
-                        category in Text(category).tag(category)
+                
+                Picker("Category", selection: $item.category) {
+                    ForEach(categories, id: \.self) { category in
+                        Text(category.title).tag(category as Category?)
                     }
                 }
             }
             .onChange(of: selectedImage) { oldItem, newImage in
                 Task {
                     guard let newImage else { return }
-                    
                     do {
-                        if let data = try? await newImage.loadTransferable(type: Data.self) {
+                        if let data = try await newImage.loadTransferable(type: Data.self) {
                             if let image = UIImage(data: data) {
                                 uiImage = image
                             }
@@ -77,7 +76,6 @@ struct ItemDetailView: View {
                     } catch {
                         print(error)
                     }
-
                 }
             }
         }
