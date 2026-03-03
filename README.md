@@ -9,6 +9,15 @@ Eine einfache Gegenstandsverwaltung für den Haushalt
 - Nicolas: UML, Struktur, Klassifizierungen
 - Ingo: Basis-Projektcode und -pflege, sowie Feinschliff
 
+#### Offene ToDos:
+- Relationship 1:∞ ItemType 1->∞ Item
+- `ItemTypes` anlegen und ändern
+- Views an Buttons und Navigation anbinden
+
+#### Vorschläge und Ideen
+- zusätzliches 1:∞ Model für den Lagerort, also sowas wie "Wohnzimmer", "Küche",…
+- Schwebende "Liquid Glass" Bedienelemente?
+
 #### Struktur der App:
 Mit der App kann man Gegenstände im Haushalt verwalten. Die Gegenstände kann man frei kategorisieren.
 

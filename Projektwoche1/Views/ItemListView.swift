@@ -11,6 +11,7 @@ import SwiftData
 struct ItemListView: View {
 	@Environment(\.modelContext) private var context
 
+	// TODO: Items entsprechend der Settings sortieren
 	@Query(sort: \Item.title) private var items : [Item]
 
 	@State private var presentAddSheet : Bool = false
