@@ -48,12 +48,12 @@ class DataProvider {
 		mainContext.insert(ItemType(title: "Sport"))
 
 		mainContext.insert(Item(title: "Harry Potter 1", count: 1))
-		mainContext.insert(Item(title: "Harry Potter 2", count: 1))
+		mainContext.insert(Item(title: "Harry Potter 2", count: 3))
 		mainContext.insert(Item(title: "Harry Potter 3", count: 1))
 		mainContext.insert(Item(title: "Harry Potter 4", count: 1))
 		mainContext.insert(Item(title: "Cray-1", count: 1))
 		mainContext.insert(Item(title: "Kommode", count: 1))
-		mainContext.insert(Item(title: "Surfbrett", count: 1))
+		mainContext.insert(Item(title: "Surfbrett", count: 2))
 	}
 
 }
