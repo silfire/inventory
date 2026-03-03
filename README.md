@@ -24,7 +24,7 @@ Eine einfache Gegenstandsverwaltung für den Haushalt
 Mit der App kann man Gegenstände im Haushalt verwalten. Die Gegenstände kann man frei kategorisieren.
 
 #### View-Struktur des Codes:
-- `ContenView` mit TabBar
+- `ContentView` mit TabBar
   - `ItemListView` (Gegenstände)
     - `ItemDetailView` per NavigationLink
     - `AddItemView` per Toolbar-Button
