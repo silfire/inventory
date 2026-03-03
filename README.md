@@ -6,16 +6,13 @@ Eine einfache Gegenstandsverwaltung für den Haushalt
 - __Domenik__: `SettingsView`
 - __Kevin__: `ItemDetailView`
 - __Daniel__: `SearchListView`
-- __Nicolas__: UML, Struktur, Klassifizierungen
+- __Nicolas__: Anzeige der Summe aller Gegenstände im `ItemListView`
 - __Ingo__: Basis-Projektcode und -pflege, sowie Feinschliff
 
 #### Offene ToDos:
-- `@Relationship` ItemType 1->∞ Item
-- `ItemTypes` anlegen und ändern
 - Views an Buttons und Navigation anbinden
 - Bilder/Foto Property zu `Item` hinzufügen
 - Bilder verwaltbar machen
-- Anzeige der Summe aller Gegenstände im `ItemListView`
 - Übersicht optional, also z.b. per Toolbar-Button, nach Kategorien sortieren
 
 #### Vorschläge und Ideen
@@ -27,12 +24,12 @@ Eine einfache Gegenstandsverwaltung für den Haushalt
 Mit der App kann man Gegenstände im Haushalt verwalten. Die Gegenstände kann man frei kategorisieren.
 
 #### View-Struktur des Codes:
-- `ContenView` mit TabBar
+- `ContentView` mit TabBar
   - `ItemListView` (Gegenstände)
     - `ItemDetailView` per NavigationLink
     - `AddItemView` per Toolbar-Button
     - `SettingsView` per Toolbar-Button
-  - `ÌtemTypeListView` (Kategorien)
+  - `CategoryListView` (Kategorien)
   - `SearchListView` (Gegenstandssuche)
   
 - SubViews:

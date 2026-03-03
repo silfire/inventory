@@ -11,15 +11,18 @@ import SwiftData
 @Model
 class Item {
     var title : String
-    var count : Int
+    var quantity : Int
     var date: Date
+    var location: String
+  
 
-    @Relationship var type: ItemType?
+    @Relationship var category: Category?
     
-    init(title: String, count: Int = 0) {
+	init(title: String, count: Int = 0, category: Category? = nil) {
         self.title = title
-        self.count = count
+        self.quantity = count
         self.date = .now
-        self.type = nil
+        self.location = ""
+        self.category = category
     }
 }

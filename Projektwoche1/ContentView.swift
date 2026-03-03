@@ -21,8 +21,8 @@ struct ContentView: View {
 				ItemListView()
 			}
 
-			Tab("Types", systemImage: "tag") {
-				ItemTypeListView()
+			Tab("Categories", systemImage: "tag") {
+				CategoryListView()
 			}
 			Tab(role: .search) {
 				SearchListView()

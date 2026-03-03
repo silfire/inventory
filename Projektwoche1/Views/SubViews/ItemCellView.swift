@@ -17,7 +17,7 @@ struct ItemCellView: View {
 		HStack {
 			Text(item.title)
 			Spacer()
-			Text("\(item.count)")
+			Text("\(item.quantity)")
 				.padding()
 				.background(.quaternary)
 				.clipShape(.circle)

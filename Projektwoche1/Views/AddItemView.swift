@@ -12,27 +12,27 @@ struct AddItemView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var context
     
-    @Query var itemTypes: [ItemType]
+    @Query var itemTypes: [Category]
     
     @State private var items : Item = Item(title: "", count: 1)
     @State private var sliderValue : Double = 1
     
     @State private var selectedDate: Date = .now
-    @State private var selectedCategory : ItemType?
+    @State private var selectedCategory : Category?
     
     var body: some View {
         Form {
             TextField("Füge ein neues Item hinzu", text: $items.title)
             
-            Picker("Kategorie", selection: $items.type) {
+            Picker("Kategorie", selection: $items.category) {
                 ForEach(itemTypes) { category in
                     Text(category.title)
                         .tag(category)
                 }
             }
             .onAppear {
-                if items.type == nil {
-                    items.type = itemTypes.first
+                if items.category == nil {
+                    items.category = itemTypes.first
                 }
             }
             
@@ -51,7 +51,7 @@ struct AddItemView: View {
                 
                 Section {
                     Button {
-                        items.count = Int(sliderValue)
+                        items.quantity = Int(sliderValue)
                         items.date = selectedDate 
                         context.insert(items)
                         dismiss()

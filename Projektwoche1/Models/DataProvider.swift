@@ -27,7 +27,7 @@ class DataProvider {
 	var mainContext : ModelContext { return self.container.mainContext }
 
 	private init(preview : Bool = false) {
-		let schema = Schema([Item.self, ItemType.self])
+		let schema = Schema([Item.self, Category.self])
 
 		let config = ModelConfiguration("Inventory_Configuration", schema: schema, isStoredInMemoryOnly: preview)
 		do {
@@ -41,19 +41,19 @@ class DataProvider {
 	}
 
 	func addExamples() {
-		mainContext.insert(ItemType(title: "Buch"))
-		mainContext.insert(ItemType(title: "Möbel"))
-		mainContext.insert(ItemType(title: "Hardware"))
-		mainContext.insert(ItemType(title: "Musik"))
-		mainContext.insert(ItemType(title: "Sport"))
+		mainContext.insert(Category(title: "Buch"))
+		mainContext.insert(Category(title: "Möbel"))
+		mainContext.insert(Category(title: "Hardware"))
+		mainContext.insert(Category(title: "Musik"))
+		mainContext.insert(Category(title: "Sport"))
 
 		mainContext.insert(Item(title: "Harry Potter 1", count: 1))
-		mainContext.insert(Item(title: "Harry Potter 2", count: 1))
+		mainContext.insert(Item(title: "Harry Potter 2", count: 3))
 		mainContext.insert(Item(title: "Harry Potter 3", count: 1))
 		mainContext.insert(Item(title: "Harry Potter 4", count: 1))
 		mainContext.insert(Item(title: "Cray-1", count: 1))
 		mainContext.insert(Item(title: "Kommode", count: 1))
-		mainContext.insert(Item(title: "Surfbrett", count: 1))
+		mainContext.insert(Item(title: "Surfbrett", count: 2))
 	}
 
 }
