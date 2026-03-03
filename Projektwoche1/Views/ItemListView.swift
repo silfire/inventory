@@ -36,9 +36,9 @@ struct ItemListView: View {
             case .date:
                 return ascending ? first.date < second.date : first.date > second.date
             case .category:
-                return ascending ? (first.type?.title ?? "") < (second.type?.title ?? "") : (first.type?.title ?? "") > (second.type?.title ?? "")
+                return ascending ? (first.category?.title ?? "") < (second.category?.title ?? "") : (first.category?.title ?? "") > (second.category?.title ?? "")
             case .amount:
-                return ascending ? first.count < second.count : first.count > second.count
+                return ascending ? first.quantity < second.quantity : first.quantity > second.quantity
             }
         }
     }

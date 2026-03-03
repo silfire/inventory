@@ -22,7 +22,6 @@ class Item {
         self.title = title
         self.quantity = count
         self.date = .now
-        self.type = nil
         self.location = ""
         self.category = category
     }
