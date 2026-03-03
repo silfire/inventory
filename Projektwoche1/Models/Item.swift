@@ -13,6 +13,8 @@ class Item {
     var title : String
     var count : Int
     var date: Date
+    var location: String
+  
 
     @Relationship var type: ItemType?
     
@@ -21,5 +23,6 @@ class Item {
         self.count = count
         self.date = .now
         self.type = nil
+        self.location = ""
     }
 }

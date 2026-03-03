@@ -30,15 +30,15 @@ struct ItemListView: View {
             
             switch sortCriterion {
             case .alphabetical:
-                return ascending ? first.name < second.name : first.name > second.name
+                return ascending ? first.title < second.title : first.title > second.title
             case .location:
-                return ascending ? (first.location ?? "") < (second.location ?? "") : (first.location ?? "") > (second.location ?? "")
+                return ascending ? (first.location) < (second.location) : (first.location) > (second.location)
             case .date:
-                return ascending ? first.createdAt < second.createdAt : first.createdAt > second.createdAt
+                return ascending ? first.date < second.date : first.date > second.date
             case .category:
-                return ascending ? (first.category?.name ?? "") < (second.category?.name ?? "") : (first.category?.name ?? "") > (second.category?.name ?? "")
+                return ascending ? (first.type?.title ?? "") < (second.type?.title ?? "") : (first.type?.title ?? "") > (second.type?.title ?? "")
             case .amount:
-                return ascending ? first.quantity < second.quantity : first.quantity > second.quantity
+                return ascending ? first.count < second.count : first.count > second.count
             }
         }
     }
