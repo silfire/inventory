@@ -16,6 +16,7 @@ Eine einfache Gegenstandsverwaltung für den Haushalt
 - Bilder/Foto Property zu `Item` hinzufügen
 - Bilder verwaltbar machen
 - Anzeige der Summe aller Gegenstände im `ItemListView`
+- Übersicht optional, also z.b. per Toolbar-Button, nach Kategorien sortieren
 
 #### Vorschläge und Ideen
 - zusätzliches 1:∞ Model für den Lagerort, also sowas wie "Wohnzimmer", "Küche",…
