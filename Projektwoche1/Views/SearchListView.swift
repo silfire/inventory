@@ -19,7 +19,7 @@ struct SearchListView: View {
         NavigationStack {
             List {
                 ForEach (filterResult) { item in
-                    Text(item.title)
+					ItemCellView(item: item)
                 }
             }
             .searchable(
