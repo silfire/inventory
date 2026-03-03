@@ -10,9 +10,22 @@
 		DB8A47BD2D43AFD3001C2B3B /* Projektwoche1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Projektwoche1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		1E0DB4162F56C126002579E1 /* Exceptions for "Projektwoche1" folder in "Projektwoche1" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				README.md,
+			);
+			target = DB8A47BC2D43AFD3001C2B3B /* Projektwoche1 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DB8A47BF2D43AFD3001C2B3B /* Projektwoche1 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1E0DB4162F56C126002579E1 /* Exceptions for "Projektwoche1" folder in "Projektwoche1" target */,
+			);
 			path = Projektwoche1;
 			sourceTree = "<group>";
 		};
