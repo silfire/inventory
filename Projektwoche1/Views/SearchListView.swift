@@ -16,15 +16,16 @@ struct SearchListView: View {
     @State private var searchText : String = ""
     
     var body: some View {
-		// TODO: Navigation Title
+        // TODO: Navigati
         NavigationStack {
             List {
-				// TODO: Navigation Link to Item details
+             
                 ForEach (filterResult) { item in
-					ItemCellView(item: item)
+                    ItemCellView(item: item)
                 }
-				// TODO: .onDelete
+                .onDelete(perform: deleteItems)
             }
+            .navigationTitle("Items Details")
             .searchable(
                 text: $searchText,
                 placement: .automatic,
@@ -34,7 +35,16 @@ struct SearchListView: View {
                     item.title.localizedCaseInsensitiveContains(searchText)
                 }
             }
-			.animation(.default, value: filterResult)
+        }
+        
+        
+    }
+    
+    private func deleteItems(at offsets: IndexSet) {
+        for index in offsets {
+            let item = filterResult[index]
+            context.delete(item)
+            
         }
     }
 }

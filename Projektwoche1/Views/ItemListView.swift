@@ -47,71 +47,84 @@ struct ItemListView: View {
         }
     }
     
-
+    private var totalQuantity: Int {
+        items.reduce(into: 0) { result, item in
+            result += item.quantity
+        }
+    }
+            
     var body: some View {
-        // Main navigation container for the list and its detail destinations.
-        NavigationStack {
-            // Inventory list. Rows navigate to a detail view when tapped.
-            List {
-                ForEach(sortedItems) { item in
-                    NavigationLink {
-                        ItemDetailView(item: item)
-                    } label: {
-                        ItemCellView(item: item)
-                    }
-                }
-                // Support swipe-to-delete to remove items from the model.
-                .onDelete { indexSet in
-                    for index in indexSet {
-                        context.delete(items[index])
-                    }
-                }
-                // Tighter vertical spacing and standard horizontal padding for each row.
-                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-            }
-            // Top bar actions: open settings and add a new item.
-            .toolbar {
-                // Settings button: opens sorting and other preferences.
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        presentSettingsSheet.toggle()
-                    } label: { Image(systemName: "gearshape")}
-                }
-
-                // Add button: presents the sheet to create a new item.
-                ToolbarItem {
-                    Button {
-                        presentAddSheet.toggle()
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
-            }
-            // Localized navigation title for the inventory list.
-            .navigationTitle("Inventory")
-        }
-        // Animate list updates when the underlying data changes.
-        .animation(.default, value: items)
-        // Sheet for adding a new item.
-        .sheet(isPresented: $presentAddSheet) {
+        ZStack(alignment: .bottom) {
+            // Main navigation container for the list and its detail destinations.
             NavigationStack {
-                AddItemView()
+                // Inventory list. Rows navigate to a detail view when tapped.
+                List {
+                    ForEach(sortedItems) { item in
+                        NavigationLink {
+                            ItemDetailView(item: item)
+                        } label: {
+                            ItemCellView(item: item)
+                        }
+                    }
+                    // Support swipe-to-delete to remove items from the model.
+                    .onDelete { indexSet in
+                        for index in indexSet {
+                            context.delete(items[index])
+                        }
+                    }
+                    // Tighter vertical spacing and standard horizontal padding for each row.
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                }
+                // Top bar actions: open settings and add a new item.
+                .toolbar {
+                    // Settings button: opens sorting and other preferences.
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            presentSettingsSheet.toggle()
+                        } label: { Image(systemName: "gearshape")}
+                    }
+                    
+                    // Add button: presents the sheet to create a new item.
+                    ToolbarItem {
+                        Button {
+                            presentAddSheet.toggle()
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                    }
+                }
+                // Localized navigation title for the inventory list.
+                .navigationTitle("Liste der Inventare")
+            }
+            // Animate list updates when the underlying data changes.
+            .animation(.default, value: items)
+            // Sheet for adding a new item.
+            .sheet(isPresented: $presentAddSheet) {
+                NavigationStack {
+                    AddItemView()
                     // Present at a medium height for a focused form.
-                    .presentationDetents([.medium])
+                        .presentationDetents([.medium])
+                }
             }
-        }
-        // Sheet for adjusting app settings (including sort preferences).
-        .sheet(isPresented: $presentSettingsSheet) {
-            NavigationStack {
-                SettingsView()
+            // Sheet for adjusting app settings (including sort preferences).
+            .sheet(isPresented: $presentSettingsSheet) {
+                NavigationStack {
+                    SettingsView()
                     // Present settings in a medium detent for quick adjustments.
-                    .presentationDetents([.medium])
+                        .presentationDetents([.medium])
+                }
             }
-        }
-
-        // Perform any first-launch setup here if needed.
-        .onAppear {
-            guard items.isEmpty else { return }
+            
+            // Perform any first-launch setup here if needed.
+            .onAppear {
+                guard items.isEmpty else { return }
+            }
+            
+            TotalInventoryView(total: totalQuantity)
+                .padding(.bottom, 20)
+                .padding(.horizontal, 16)
+                .allowsHitTesting(false)                                                            // TabBar bleibt klickbar
+                .transition(.move(edge: .bottom).combined(with: .opacity))
         }
     }
 }
