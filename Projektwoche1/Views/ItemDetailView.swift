@@ -63,6 +63,13 @@ struct ItemDetailView: View {
                         Text(category.title).tag(category as Category?)
                     }
                 }
+                
+                DatePicker("Select date:", selection: $item.date, displayedComponents: .date)
+            }
+            .onAppear {
+                if let data = item.imageData {
+                    uiImage = UIImage(data: data)
+                }
             }
             .onChange(of: selectedImage) { oldItem, newImage in
                 Task {
@@ -71,6 +78,7 @@ struct ItemDetailView: View {
                         if let data = try await newImage.loadTransferable(type: Data.self) {
                             if let image = UIImage(data: data) {
                                 uiImage = image
+                                item.imageData = data
                             }
                         }
                     } catch {
