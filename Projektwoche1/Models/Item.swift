@@ -17,12 +17,14 @@ class Item {
   
 
     @Relationship var category: Category?
+    @Attribute(.externalStorage) var imageData: Data?
     
-	init(title: String, count: Int = 0, category: Category? = nil) {
+	init(title: String, count: Int = 0, category: Category? = nil, ImageData: Data? = nil) {
         self.title = title
         self.quantity = count
         self.date = .now
         self.location = ""
         self.category = category
+        self.imageData = ImageData
     }
 }
