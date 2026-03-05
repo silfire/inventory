@@ -12,11 +12,11 @@ import SwiftData
 struct ItemListView: View {
     /// SwiftData model context used for create/update/delete operations.
     @Environment(\.modelContext) private var context
-
+    
     // The raw items fetched from SwiftData; we apply custom sorting below based on user settings.
     /// Live query of items from the model container. The base sort is by title; UI can re-sort as needed.
     @Query(sort: \Item.title) private var items : [Item]
-
+    
     /// Sheet presentation state for Add and Settings views.
     @State private var presentAddSheet : Bool = false
     @State private var presentSettingsSheet : Bool = false
@@ -25,7 +25,9 @@ struct ItemListView: View {
     @AppStorage("sortCriterion") private var sortCriterion: SortCriteria = .alphabetical
     @AppStorage("sortDirection") private var sortDirection: SortDirection = .ascending
     @AppStorage("viewMode") private var viewMode: ViewMode = .list
-
+    
+    @State private var path: [Item] = []
+    
     /// Items sorted according to the current user preferences (criterion + direction).
     private var sortedItems: [Item] {
         items.sorted { (first: Item, second: Item) -> Bool in
@@ -58,45 +60,43 @@ struct ItemListView: View {
         let grouped = Dictionary(grouping: sortedItems) { $0.category?.title ?? "Ohne Kategorie" }
         return grouped.sorted { $0.key < $1.key }
     }
-            
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             // Main navigation container for the list and its detail destinations.
-            NavigationStack {
-                    Group {
-                        if viewMode == .list {
-                            List {
-                                ForEach(sortedItems) { item in
-                                    NavigationLink {
-                                        ItemDetailView(item: item)
-                                    } label: {
-                                        ItemCellView(item: item)
-                                    }
+            NavigationStack(path: $path) {
+                Group {
+                    if viewMode == .list {
+                        List {
+                            ForEach(sortedItems) { item in
+                                NavigationLink(value: item) {
+                                    ItemCellView(item: item)
                                 }
-                                .onDelete { indexSet in
-                                    for index in indexSet {
-                                        context.delete(items[index])
-                                    }
-                                }
-                                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                             }
-                        } else {
-                            List {
-                                ForEach(groupedByCategory, id: \.key) { category, items in
-                                    Section(header: Text(category)) {
-                                        ForEach(items) { item in
-                                            NavigationLink {
-                                                ItemDetailView(item: item)
-                                            } label: {
-                                                ItemCellView(item: item)
-                                            }
+                            .onDelete { indexSet in
+                                for index in indexSet {
+                                    context.delete(sortedItems[index])
+                                }
+                            }
+                            .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                        }
+                    } else {
+                        List {
+                            ForEach(groupedByCategory, id: \.key) { category, items in
+                                Section(header: Text(category)) {
+                                    ForEach(items) { item in
+                                        NavigationLink {
+                                            ItemDetailView(item: item)
+                                        } label: {
+                                            ItemCellView(item: item)
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    .toolbar {
+                }
+                .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Menu {
                             // View Mode Buttons
@@ -137,6 +137,9 @@ struct ItemListView: View {
                 }
                 // Localized navigation title for the inventory list.
                 .navigationTitle("Inventar")
+                .navigationDestination(for: Item.self) { item in
+                    ItemDetailView(item: item)
+                }
             }
             // Animate list updates when the underlying data changes.
             .animation(.default, value: items)
@@ -157,16 +160,19 @@ struct ItemListView: View {
                 }
             }
             
+            
+            
             // Perform any first-launch setup here if needed.
             .onAppear {
                 guard items.isEmpty else { return }
             }
             
-            TotalInventoryView(total: totalQuantity)
-                .padding(.bottom, 20)
-                .padding(.horizontal, 16)
-                .allowsHitTesting(false)                                                            // TabBar bleibt klickbar
-                .transition(.move(edge: .bottom).combined(with: .opacity))
+            if path.isEmpty {
+                TotalInventoryView(total: totalQuantity)
+                    .padding(.bottom, 20)
+                    .padding(.horizontal, 16)
+                    .allowsHitTesting(true)
+            }
         }
     }
 }
