@@ -171,7 +171,7 @@ struct ItemListView: View {
                 TotalInventoryView(total: totalQuantity)
                     .padding(.bottom, 20)
                     .padding(.horizontal, 16)
-                    .allowsHitTesting(false)
+                    .allowsHitTesting(true)
             }
         }
     }
