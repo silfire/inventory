@@ -24,6 +24,7 @@ struct ItemListView: View {
     /// Persisted user preferences that define how the list should be sorted.
     @AppStorage("sortCriterion") private var sortCriterion: SortCriteria = .alphabetical
     @AppStorage("sortDirection") private var sortDirection: SortDirection = .ascending
+    @AppStorage("viewMode") private var viewMode: ViewMode = .list
 
     /// Items sorted according to the current user preferences (criterion + direction).
     private var sortedItems: [Item] {
@@ -52,40 +53,81 @@ struct ItemListView: View {
             result += item.quantity
         }
     }
+    // MARK: - Gruppen Sortierung
+    private var groupedByCategory: [(key: String, value: [Item])] {
+        let grouped = Dictionary(grouping: sortedItems) { $0.category?.title ?? "Ohne Kategorie" }
+        return grouped.sorted { $0.key < $1.key }
+    }
             
     var body: some View {
         ZStack(alignment: .bottom) {
             // Main navigation container for the list and its detail destinations.
             NavigationStack {
-                // Inventory list. Rows navigate to a detail view when tapped.
-                List {
-                    ForEach(sortedItems) { item in
-                        NavigationLink {
-                            ItemDetailView(item: item)
-                        } label: {
-                            ItemCellView(item: item)
+                    Group {
+                        if viewMode == .list {
+                            List {
+                                ForEach(sortedItems) { item in
+                                    NavigationLink {
+                                        ItemDetailView(item: item)
+                                    } label: {
+                                        ItemCellView(item: item)
+                                    }
+                                }
+                                .onDelete { indexSet in
+                                    for index in indexSet {
+                                        context.delete(items[index])
+                                    }
+                                }
+                                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                            }
+                        } else {
+                            List {
+                                ForEach(groupedByCategory, id: \.key) { category, items in
+                                    Section(header: Text(category)) {
+                                        ForEach(items) { item in
+                                            NavigationLink {
+                                                ItemDetailView(item: item)
+                                            } label: {
+                                                ItemCellView(item: item)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
-                    // Support swipe-to-delete to remove items from the model.
-                    .onDelete { indexSet in
-                        for index in indexSet {
-                            context.delete(items[index])
-                        }
-                    }
-                    // Tighter vertical spacing and standard horizontal padding for each row.
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                }
-                // Top bar actions: open settings and add a new item.
-                .toolbar {
-                    // Settings button: opens sorting and other preferences.
+                    .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
-                        Button {
-                            presentSettingsSheet.toggle()
-                        } label: { Image(systemName: "gearshape")}
+                        Menu {
+                            // View Mode Buttons
+                            Button {
+                                viewMode = .list
+                            } label: {
+                                Label(ViewMode.list.displayName,
+                                      systemImage: ViewMode.list.icon)
+                            }
+                            
+                            Button {
+                                viewMode = .grouped
+                            } label: {
+                                Label(ViewMode.grouped.displayName,
+                                      systemImage: ViewMode.grouped.icon)
+                            }
+                            
+                            Divider()
+                            
+                            // Settings Button
+                            Button {
+                                presentSettingsSheet.toggle()
+                            } label: {
+                                Label("Einstellungen", systemImage: "gearshape")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle")
+                        }
                     }
                     
-                    // Add button: presents the sheet to create a new item.
-                    ToolbarItem {
+                    ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             presentAddSheet.toggle()
                         } label: {

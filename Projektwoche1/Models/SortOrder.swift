@@ -40,3 +40,23 @@ enum SortDirection: String, CaseIterable {                      /// CaseIterable
         }
     }
 }
+// MARK: View Mode
+
+enum ViewMode: String, CaseIterable {
+    case list        = "list"
+    case grouped = "groupedList"
+    
+    var displayName: String {
+        switch self {
+        case .list: return "Liste"
+        case .grouped: return "Kategorien"
+        }
+    }
+    
+    var icon: String {
+        switch self {
+        case .list: return "list.bullet"
+        case .grouped: return "square.grid.2x2"
+        }
+    }
+}
