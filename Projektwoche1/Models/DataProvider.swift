@@ -41,19 +41,22 @@ class DataProvider {
 	}
 
 	func addExamples() {
-		mainContext.insert(Category(title: "Buch"))
-		mainContext.insert(Category(title: "Möbel"))
-		mainContext.insert(Category(title: "Hardware"))
+		let book = Category(title: "Buch")
+		mainContext.insert(book)
+		let furniture = Category(title: "Möbel")
+		mainContext.insert(furniture)
+		let hardware = Category(title: "Hardware")
 		mainContext.insert(Category(title: "Musik"))
-		mainContext.insert(Category(title: "Sport"))
+		let sport = Category(title: "Sport")
+		mainContext.insert(sport)
 
-		mainContext.insert(Item(title: "Harry Potter 1", count: 1))
-		mainContext.insert(Item(title: "Harry Potter 2", count: 3))
-		mainContext.insert(Item(title: "Harry Potter 3", count: 1))
-		mainContext.insert(Item(title: "Harry Potter 4", count: 1))
-		mainContext.insert(Item(title: "Cray-1", count: 1))
-		mainContext.insert(Item(title: "Kommode", count: 1))
-		mainContext.insert(Item(title: "Surfbrett", count: 2))
+		mainContext.insert(Item(title: "Harry Potter 1", count: 1, category: book))
+		mainContext.insert(Item(title: "Harry Potter 2", count: 3, category: book))
+		mainContext.insert(Item(title: "Harry Potter 3", count: 1, category: book))
+		mainContext.insert(Item(title: "Harry Potter 4", count: 1, category: book))
+		mainContext.insert(Item(title: "Cray-1", count: 1, category: hardware))
+		mainContext.insert(Item(title: "Kommode", count: 1, category: furniture))
+		mainContext.insert(Item(title: "Surfbrett", count: 2, category: sport))
 	}
 
 }
