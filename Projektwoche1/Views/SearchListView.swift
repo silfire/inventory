@@ -16,7 +16,7 @@ struct SearchListView: View {
     @State private var searchText : String = ""
     
     var body: some View {
-        // TODO: Navigati
+      
         NavigationStack {
             List {
              
