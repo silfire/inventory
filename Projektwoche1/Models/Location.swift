@@ -10,17 +10,12 @@ import SwiftData
 
 @Model
 class Location {
-    
     var name: String
-    
-    
-    @Relationship()
-    var items: [Item] = []
-    
+
+	@Relationship(inverse: \Item.location) var items: [Item] = []
+
     init(name: String) {
-        
         self.name = name
-        
     }
     
 }
