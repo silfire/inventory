@@ -16,15 +16,33 @@ struct SettingsView: View {
     @AppStorage("sortDirection") private var selectedDirection: SortDirection = .ascending
     @State private var showDeleteConfirmation = false
     
+    // MARK: - Environment
+
+    @Environment(\.dismiss) private var dismiss
+    /// @Environment = "Gib mir automatisch Zugriff auf System-Features" hier löschen
+    @Environment(\.modelContext) private var context
+    ///
+    
+
+
     // MARK: - Body
     
     var body: some View {
         Form {
             sortSection
             dataSection
+        } // Fertig Button zum schließen
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Fertig") {
+                    dismiss()
+                }
+            }
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
+        
+        
     }
     
     // MARK: - Sort Section
@@ -65,10 +83,20 @@ struct SettingsView: View {
         .alert("Alle Daten löschen?", isPresented: $showDeleteConfirmation) {
             Button("Abbrechen", role: .cancel) { }
             Button("Löschen", role: .destructive) {
-                // TODO: Delete all data
+                deleteAllItems()
             }
         } message: {
             Text("Diese Aktion kann nicht rückgängig gemacht werden.")
+        }
+    }
+    
+    // MARK: - Funktionen
+    ///  DO versuch's, TRY kann's crashen, CATCH fang's auf!"
+    private func deleteAllItems() {
+        do {                                                    //  do = "Versuch's"
+            try context.delete(model: Item.self)               //  try = "Das hier kann scheitern"
+        } catch {                                             //  catch = "Falls es scheitert, mach das"
+            print("Fehler beim Löschen der Daten: \(error)")
         }
     }
 }
