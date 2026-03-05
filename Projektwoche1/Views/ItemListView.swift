@@ -94,7 +94,7 @@ struct ItemListView: View {
                     }
                 }
                 // Localized navigation title for the inventory list.
-                .navigationTitle("Liste der Inventare")
+                .navigationTitle("Inventar")
             }
             // Animate list updates when the underlying data changes.
             .animation(.default, value: items)
