@@ -66,6 +66,15 @@ struct AddItemView: View {
 			}
 		}
 		.navigationTitle("New item")
+		.toolbar(content: {
+			ToolbarItem(placement: .automatic) {
+				Button {
+					dismiss()
+				} label: {
+					Image(systemName: "xmark")
+				}
+			}
+		})
 		.onAppear {
 			titleFocus = true
 			if selectedCategoryId == nil {
