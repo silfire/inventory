@@ -13,9 +13,10 @@ class Item {
     var title : String
     var quantity : Int
     var date: Date
-    var location: String
-  
 
+  
+    @Relationship(inverse: \Location.items)
+    var location: Location?
     @Relationship var category: Category?
     @Attribute(.externalStorage) var imageData: Data?
     
@@ -23,7 +24,7 @@ class Item {
         self.title = title
         self.quantity = count
         self.date = .now
-        self.location = ""
+        self.location = location
         self.category = category
         self.imageData = ImageData
     }
