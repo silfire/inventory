@@ -20,20 +20,17 @@ struct AddItemView: View {
 	@State private var selectedDate: Date = .now
 	@State private var selectedCategoryId : PersistentIdentifier?
 
+	@FocusState private var titleFocus : Bool
+
 	var body: some View {
 		ZStack {
 			Form {
-				TextField("Titel", text: $title)
+				TextField("Titel", text: $title).focused($titleFocus)
 
 				Picker("Kategorie", selection: $selectedCategoryId) {
 					ForEach(itemTypes, id: \.id) { category in
 						Text(category.title)
 							.tag(category.id)
-					}
-				}
-				.onAppear {
-					if selectedCategoryId == nil {
-						selectedCategoryId = itemTypes.first?.id
 					}
 				}
 
@@ -69,6 +66,12 @@ struct AddItemView: View {
 			}
 		}
 		.navigationTitle("New item")
+		.onAppear {
+			titleFocus = true
+			if selectedCategoryId == nil {
+				selectedCategoryId = itemTypes.first?.id
+			}
+		}
 	}
 }
 #Preview {
