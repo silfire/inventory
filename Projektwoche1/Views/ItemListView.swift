@@ -145,7 +145,7 @@ struct ItemListView: View {
                 NavigationStack {
                     AddItemView()
                     // Present at a medium height for a focused form.
-                        .presentationDetents([.medium])
+                        .presentationDetents([.large])
                 }
             }
             // Sheet for adjusting app settings (including sort preferences).
@@ -153,7 +153,7 @@ struct ItemListView: View {
                 NavigationStack {
                     SettingsView()
                     // Present settings in a medium detent for quick adjustments.
-                        .presentationDetents([.medium])
+                        .presentationDetents([.large])
                 }
             }
             
