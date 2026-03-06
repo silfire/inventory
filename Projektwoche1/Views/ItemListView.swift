@@ -67,6 +67,7 @@ struct ItemListView: View {
             NavigationStack(path: $path) {
                 
                 StatsView()
+                    .padding(.horizontal, 16)
                 
                // Text("\(Int((Double(slice.value) / Double(total)) * 100))%")
                 
