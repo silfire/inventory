@@ -9,15 +9,32 @@ import SwiftUI
 import SwiftData
 
 struct LocationListView: View {
-    
+
     @Query(sort: \Location.name) var locations: [Location]
-    
+    @State private var showAddLocation = false
+
     var body: some View {
         NavigationStack {
             List(locations) { location in
-                Text(location.name)
+                NavigationLink {
+                    EditLocationView(location: location)
+                } label: {
+                    Text(location.name)
+                }
             }
             .navigationTitle("Locations")
+
+            .toolbar {
+                Button {
+                    showAddLocation = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+
+            .sheet(isPresented: $showAddLocation) {
+                AddLocationView()
+            }
         }
     }
 }

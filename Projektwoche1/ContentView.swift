@@ -24,6 +24,11 @@ struct ContentView: View {
 			Tab("Categories", systemImage: "tag") {
 				CategoryListView()
 			}
+            
+            Tab("Locations", systemImage: "map") {
+                  LocationListView()
+              }
+            
 			Tab(role: .search) {
 				SearchListView()
 			}

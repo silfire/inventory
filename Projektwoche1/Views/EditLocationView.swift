@@ -13,6 +13,7 @@ struct EditLocationView: View {
     @Bindable var location: Location
     
     var body: some View {
+        Text("Location bearbeiten: \(location.name)")
         Form {
             TextField("Location name", text: $location.name)
         }
