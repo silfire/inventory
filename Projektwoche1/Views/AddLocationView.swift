@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct AddLocationView: View {
-    
+struct AddLocationView_Deprecated: View {
+
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     
