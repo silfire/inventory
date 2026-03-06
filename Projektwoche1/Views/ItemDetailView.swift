@@ -25,9 +25,6 @@ struct ItemDetailView: View {
 
     var body: some View {
         VStack {
-            Text(item.title)
-                .font(.largeTitle)
-                .bold(true)
             Form {
                 Section {
                     HStack {
@@ -104,11 +101,14 @@ struct ItemDetailView: View {
                     }
                 }
             }
+			.navigationTitle(item.title)
         }
     }
 }
 
 #Preview {
-	ItemDetailView(item: Item(title: "Test", count: 1))
-		.modelContainer(DataProvider.preview.container)
+	NavigationStack {
+		ItemDetailView(item: Item(title: "Test", count: 1))
+			.modelContainer(DataProvider.preview.container)
+	}
 }
