@@ -12,7 +12,7 @@ import PhotosUI
 struct ItemDetailView: View {
 	@Environment(\.modelContext) var context
 
-    @State var item : Item = Item(title: "", count: 1)
+    @State var item : Item
     
     @State private var selectedImage : PhotosPickerItem? = nil
     @State private var uiImage : UIImage? = nil
@@ -76,6 +76,8 @@ struct ItemDetailView: View {
                 DatePicker("Select date:", selection: $item.date, displayedComponents: .date)
             }
             .onAppear {
+				selectedCategoryID = item.category?.id
+				selectedLocationID = item.location?.id
                 if let data = item.imageData {
                     uiImage = UIImage(data: data)
                 }

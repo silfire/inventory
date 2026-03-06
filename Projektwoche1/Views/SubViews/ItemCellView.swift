@@ -9,12 +9,24 @@ import SwiftUI
 import SwiftData
 
 struct ItemCellView: View {
+	static let imageHeight : CGFloat = 34
 	@Environment(\.modelContext) private var context
 
 	@State var item : Item
 
     var body: some View {
 		HStack {
+			if let data = item.imageData, let uiImage = UIImage(data: data) {
+				Image(uiImage: uiImage)
+					.resizable()
+					.scaledToFill()
+					.frame(width: ItemCellView.imageHeight, height: ItemCellView.imageHeight)
+					.clipShape(.circle)
+			} else {
+				Spacer()
+					.frame(width: ItemCellView.imageHeight, height: ItemCellView.imageHeight)
+
+			}
 			Text(item.title)
 			Spacer()
 			Text("\(item.quantity)")
