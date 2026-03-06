@@ -66,11 +66,6 @@ struct ItemListView: View {
             // Main navigation container for the list and its detail destinations.
             NavigationStack(path: $path) {
                 
-                
-                
-               // Text("\(Int((Double(slice.value) / Double(total)) * 100))%")
-                
-                
                 Group {
                     if viewMode == .list {
                         List {

@@ -36,15 +36,15 @@ struct StatsView: View {
             .sorted { $0.value > $1.value }
     }
 
-    private var locationDistribution: [Slice] {
-        let dict = items.reduce(into: [String: Int]()) { result, item in
-			let trimmed = item.location?.name.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            let key = trimmed.isEmpty ? "Ohne Ort" : trimmed
-            result[key, default: 0] += item.quantity
-        }
-        return dict.map { Slice(label: $0.key, value: $0.value) }
-            .sorted { $0.value > $1.value }
-    }
+//    private var locationDistribution: [Slice] {
+//        let dict = items.reduce(into: [String: Int]()) { result, item in
+//			let trimmed = item.location?.name.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+//            let key = trimmed.isEmpty ? "Ohne Ort" : trimmed
+//            result[key, default: 0] += item.quantity
+//        }
+//        return dict.map { Slice(label: $0.key, value: $0.value) }
+//            .sorted { $0.value > $1.value }
+//    }
 }
 
 struct Slice: Identifiable {
@@ -88,19 +88,19 @@ struct PieCard: View {
                 VStack(spacing: 10) {
                     ForEach(Array(data.enumerated()), id: \.element.id) { index, slice in
                         HStack(spacing: 12) {
-                            Circle()
+                            Circle()                                                                // Farbkreis
                                 .fill(chartColor(for: index))
                                 .frame(width: 12, height: 12)
 
-                            Text(slice.label)
+                            Text(slice.label)                                                       // Label
                                 .lineLimit(1)
 
                             Spacer()
 
-                            Text("\(slice.value)")
+                            Text("\(slice.value)")                                                  // Anzahl
                                 .foregroundStyle(.secondary)
 
-                            Text("\(percentage(for: slice))%")
+                            Text("\(percentage(for: slice))%")                                      // Prozent
                                 .fontWeight(.semibold)
                                 .frame(width: 44, alignment: .trailing)
                         }
