@@ -35,7 +35,7 @@ struct StatsView: View {
 
     private var locationDistribution: [Slice] {
         let dict = items.reduce(into: [String: Int]()) { result, item in
-            let trimmed = item.location.trimmingCharacters(in: .whitespacesAndNewlines)
+			let trimmed = item.location?.name.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             let key = trimmed.isEmpty ? "Ohne Ort" : trimmed
             result[key, default: 0] += item.quantity
         }
