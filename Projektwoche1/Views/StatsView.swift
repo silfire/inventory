@@ -19,7 +19,10 @@ struct StatsView: View {
                 title: "Verteilung nach Kategorien",
                 data: categoryDistribution
             )
-            // PieCard(title: "Verteilung nach Ort", data: locationDistribution)
+//            PieCard(
+//                title: "Verteilung nach Ort",
+//                data: locationDistribution
+//            )
         }
         .padding(.vertical, 8)
     }
@@ -57,12 +60,14 @@ struct PieCard: View {
     private var total: Int { data.reduce(0) { $0 + $1.value } }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 16) {
             HStack {
-                Text(title).font(.headline)
+                Text(title)
+                    .font(.headline)
                 Spacer()
                 Text("Gesamt: \(total)")
                     .font(.subheadline)
+                    .foregroundStyle(.secondary)
             }
 
             if total == 0 {
@@ -72,18 +77,56 @@ struct PieCard: View {
                 Chart(data) { slice in
                     SectorMark(
                         angle: .value("Anzahl", slice.value),
-                        angularInset: 3                                                                 //"Chartstyle" Zwischenräume
+                        angularInset: 3
                     )
                     .cornerRadius(6)
-                    
+                    .foregroundStyle(by: .value("Kategorie", slice.label))
                 }
                 .frame(height: 260)
-                .chartLegend(position: .bottom, alignment: .leading)
+                .chartLegend(.hidden)
+
+                VStack(spacing: 10) {
+                    ForEach(Array(data.enumerated()), id: \.element.id) { index, slice in
+                        HStack(spacing: 12) {
+                            Circle()
+                                .fill(chartColor(for: index))
+                                .frame(width: 12, height: 12)
+
+                            Text(slice.label)
+                                .lineLimit(1)
+
+                            Spacer()
+
+                            Text("\(slice.value)")
+                                .foregroundStyle(.secondary)
+
+                            Text("\(percentage(for: slice))%")
+                                .fontWeight(.semibold)
+                                .frame(width: 44, alignment: .trailing)
+                        }
+                        .font(.subheadline)
+                    }
+                }
+                .padding(.top, 4)
             }
         }
         .padding()
         .background(.ultraThinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 20))
+    }
+
+    // MARK: - Helpers
+
+    private func percentage(for slice: Slice) -> Int {
+        guard total > 0 else { return 0 }
+        return Int(round((Double(slice.value) / Double(total)) * 100))
+    }
+
+    private func chartColor(for index: Int) -> Color {
+        let colors: [Color] = [
+            .blue, .green, .orange, .purple, .pink, .teal, .yellow, .red, .mint, .indigo
+        ]
+        return colors[index % colors.count]
     }
 }
 
