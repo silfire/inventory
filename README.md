@@ -2,24 +2,6 @@
 ## `SwiftData` & `SwiftUI`- Übungen
 Eine einfache Gegenstandsverwaltung für den Haushalt 
 
-#### Aktuelle Aufgabenverteilung:
-- __Domenik__: `SettingsView`
-- __Kevin__: `ItemDetailView`
-- __Daniel__: `SearchListView`
-- __Nicolas__: Anzeige der Summe aller Gegenstände im `ItemListView`
-- __Ingo__: Basis-Projektcode und -pflege, sowie Feinschliff
-
-#### Offene ToDos:
-- Views an Buttons und Navigation anbinden
-- Bilder/Foto Property zu `Item` hinzufügen
-- Bilder verwaltbar machen
-- Übersicht optional, also z.b. per Toolbar-Button, nach Kategorien sortieren
-
-#### Vorschläge und Ideen
-- zusätzliches 1:∞ Model für den Lagerort, also sowas wie "Wohnzimmer", "Küche",…
-- Statistik-Dashboard mit Kreisdiagramm, um Verteilung der Gegenstände nach Kategorien anzuzeigen
-- Schwebende "Liquid Glass" Bedienelemente
-
 #### Struktur der App:
 Mit der App kann man Gegenstände im Haushalt verwalten. Die Gegenstände kann man frei kategorisieren.
 

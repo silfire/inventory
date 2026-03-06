@@ -20,6 +20,9 @@ struct ItemDetailView: View {
     @Query(sort: \Category.title) var categories: [Category]
 	@Query(sort: \Location.name) var locations: [Location]
 
+	@State private var selectedCategoryID : PersistentIdentifier?
+	@State private var selectedLocationID : PersistentIdentifier?
+
     var body: some View {
         VStack {
             Text(item.title)
@@ -59,15 +62,16 @@ struct ItemDetailView: View {
                     Text("Quantity: \(item.quantity)")
                 }
                 
-                Picker("Category", selection: $item.category) {
-                    ForEach(categories, id: \.self) { category in
-                        Text(category.title).tag(category as Category?)
-                    }
-                }
-				Picker("Ort", selection: $item.location) {
+				Picker("Kategorie", selection: $selectedCategoryID) {
+					ForEach(categories, id: \.id) { category in
+						Text(category.title)
+							.tag(category.id)
+					}
+				}
+				Picker("Ort", selection: $selectedLocationID) {
 					ForEach(locations, id: \.id) { location in
 						Text(location.name)
-							.tag(location)
+							.tag(location.id)
 					}
 				}
 
@@ -79,6 +83,12 @@ struct ItemDetailView: View {
                     uiImage = UIImage(data: data)
                 }
             }
+			.onChange(of: selectedCategoryID, initial: false, { _, newValue in
+				item.category = categories.first { $0.id == newValue }
+			})
+			.onChange(of: selectedLocationID, initial: false, { _, newValue in
+				item.location = locations.first { $0.id == newValue }
+			})
             .onChange(of: selectedImage) { oldItem, newImage in
                 Task {
                     guard let newImage else { return }
