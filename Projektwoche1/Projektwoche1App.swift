@@ -14,6 +14,6 @@ struct Projektwoche1App: App {
         WindowGroup {
             ContentView()
         }
-		.modelContainer(for: [Item.self], inMemory: true)
+		.modelContainer(DataProvider.shared.container)
     }
 }
