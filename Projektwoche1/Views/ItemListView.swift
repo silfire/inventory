@@ -171,7 +171,7 @@ struct ItemListView: View {
                 NavigationStack {
                     SettingsView()
                     // Present settings in a medium detent for quick adjustments.
-                        .presentationDetents([.large])
+                        .presentationDetents([.medium])
                 }
             }
             
