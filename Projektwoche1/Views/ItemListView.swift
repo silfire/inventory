@@ -62,9 +62,9 @@ struct ItemListView: View {
     }
     
     var body: some View {
-        ZStack(alignment: .bottom) {
+		NavigationStack(path: $path) {
             // Main navigation container for the list and its detail destinations.
-            NavigationStack(path: $path) {
+			ZStack(alignment: .bottom) {
                 
                 
                 
@@ -148,6 +148,12 @@ struct ItemListView: View {
                 .navigationDestination(for: Item.self) { item in
                     ItemDetailView(item: item)
                 }
+				if path.isEmpty {
+					TotalInventoryView(total: totalQuantity)
+						.padding(.bottom, 20)
+						.padding(.horizontal, 16)
+						.allowsHitTesting(true)
+				}
             }
             // Animate list updates when the underlying data changes.
             .animation(.default, value: items)
@@ -175,12 +181,6 @@ struct ItemListView: View {
                 guard items.isEmpty else { return }
             }
 
-            if path.isEmpty {
-                TotalInventoryView(total: totalQuantity)
-                    .padding(.bottom, 20)
-                    .padding(.horizontal, 16)
-                    .allowsHitTesting(true)
-            }
         }
     }
 }
