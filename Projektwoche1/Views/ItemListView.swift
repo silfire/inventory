@@ -25,7 +25,7 @@ struct ItemListView: View {
     @AppStorage("sortCriterion") private var sortCriterion: SortCriteria = .alphabetical
     @AppStorage("sortDirection") private var sortDirection: SortDirection = .ascending
     @AppStorage("viewMode") private var viewMode: ViewMode = .list
-    
+
     @State private var path: [Item] = []
     
     /// Items sorted according to the current user preferences (criterion + direction).
@@ -114,21 +114,14 @@ struct ItemListView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Menu {
-                            // View Mode Buttons
-                            Button {
-                                viewMode = .list
-                            } label: {
-                                Label(ViewMode.list.displayName,
-                                      systemImage: ViewMode.list.icon)
-                            }
-                            
-                            Button {
-                                viewMode = .grouped
-                            } label: {
-                                Label(ViewMode.grouped.displayName,
-                                      systemImage: ViewMode.grouped.icon)
-                            }
-                            
+							// View Mode Buttons
+							Picker("List mode", selection: $viewMode) {
+								ForEach(ViewMode.allCases) { mode in
+									Label(mode.displayName, systemImage: mode.icon)
+									.tag(mode)
+								}
+							}
+
                             Divider()
                             
                             // Settings Button
@@ -181,7 +174,7 @@ struct ItemListView: View {
             .onAppear {
                 guard items.isEmpty else { return }
             }
-            
+
             if path.isEmpty {
                 TotalInventoryView(total: totalQuantity)
                     .padding(.bottom, 20)

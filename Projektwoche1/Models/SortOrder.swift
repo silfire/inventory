@@ -42,7 +42,9 @@ enum SortDirection: String, CaseIterable {                      /// CaseIterable
 }
 // MARK: View Mode
 
-enum ViewMode: String, CaseIterable {
+enum ViewMode: String, CaseIterable, Hashable, Identifiable {
+	var id : String {rawValue}
+
     case list        = "list"
     case grouped = "groupedList"
     
