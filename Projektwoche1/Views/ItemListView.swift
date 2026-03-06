@@ -66,14 +66,16 @@ struct ItemListView: View {
             // Main navigation container for the list and its detail destinations.
             NavigationStack(path: $path) {
                 
-                StatsView()
-                    .padding(.horizontal, 16)
+                
                 
                // Text("\(Int((Double(slice.value) / Double(total)) * 100))%")
+                
                 
                 Group {
                     if viewMode == .list {
                         List {
+                            StatsView()
+                            
                             ForEach(sortedItems) { item in
                                 NavigationLink(value: item) {
                                     ItemCellView(item: item)
