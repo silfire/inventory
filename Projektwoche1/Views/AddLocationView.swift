@@ -13,6 +13,7 @@ struct AddLocationView: View {
     @State private var name = ""
     
     var body: some View {
+        Text("Neue Location hinzufügen")
         Form {
             TextField("Location name", text: $name)
             
