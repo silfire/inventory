@@ -13,17 +13,17 @@ class Item {
     var title : String
     var quantity : Int
     var date: Date
-    var location: String
-  
 
+  
+	@Relationship var location: Location?
     @Relationship var category: Category?
     @Attribute(.externalStorage) var imageData: Data?
     
-	init(title: String, count: Int = 0, category: Category? = nil, ImageData: Data? = nil) {
+	init(title: String, count: Int = 0, category: Category? = nil, location: Location? = nil, ImageData: Data? = nil) {
         self.title = title
         self.quantity = count
         self.date = .now
-        self.location = ""
+        self.location = location
         self.category = category
         self.imageData = ImageData
     }
