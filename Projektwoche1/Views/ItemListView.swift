@@ -65,6 +65,11 @@ struct ItemListView: View {
         ZStack(alignment: .bottom) {
             // Main navigation container for the list and its detail destinations.
             NavigationStack(path: $path) {
+                
+                StatsView()
+                
+               // Text("\(Int((Double(slice.value) / Double(total)) * 100))%")
+                
                 Group {
                     if viewMode == .list {
                         List {
@@ -80,6 +85,9 @@ struct ItemListView: View {
                             }
                             .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                         }
+                        .safeAreaInset(edge: .bottom) {
+                            Color.clear.frame(height: 90)
+                        }
                     } else {
                         List {
                             ForEach(groupedByCategory, id: \.key) { category, items in
@@ -93,6 +101,9 @@ struct ItemListView: View {
                                     }
                                 }
                             }
+                        }
+                        .safeAreaInset(edge: .bottom) {
+                            Color.clear.frame(height: 90)
                         }
                     }
                 }
