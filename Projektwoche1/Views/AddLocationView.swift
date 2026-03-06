@@ -10,17 +10,24 @@ import SwiftUI
 struct AddLocationView: View {
     
     @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
+    
     @State private var name = ""
     
     var body: some View {
-        Text("Neue Location hinzufügen")
-        Form {
-            TextField("Location name", text: $name)
-            
-            Button("Save") {
-                let newLocation = Location(name: name)
-                context.insert(newLocation)
+        
+        NavigationStack {
+            Form {
+                TextField("Location name", text: $name)
+                
+                Button("Save") {
+                    let newLocation = Location(name: name)
+                    context.insert(newLocation)
+                    
+                    dismiss()
+                }
             }
+            .navigationTitle("Neue Location hinzufügen")
         }
     }
 }
