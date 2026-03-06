@@ -36,15 +36,15 @@ struct StatsView: View {
             .sorted { $0.value > $1.value }
     }
 
-//    private var locationDistribution: [Slice] {
-//        let dict = items.reduce(into: [String: Int]()) { result, item in
-//            let trimmed = item.location.trimmingCharacters(in: .whitespacesAndNewlines)
-//            let key = trimmed.isEmpty ? "Ohne Ort" : trimmed
-//            result[key, default: 0] += item.quantity
-//        }
-//        return dict.map { Slice(label: $0.key, value: $0.value) }
-//            .sorted { $0.value > $1.value }
-//    }
+    private var locationDistribution: [Slice] {
+        let dict = items.reduce(into: [String: Int]()) { result, item in
+			let trimmed = item.location?.name.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let key = trimmed.isEmpty ? "Ohne Ort" : trimmed
+            result[key, default: 0] += item.quantity
+        }
+        return dict.map { Slice(label: $0.key, value: $0.value) }
+            .sorted { $0.value > $1.value }
+    }
 }
 
 struct Slice: Identifiable {
