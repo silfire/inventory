@@ -102,6 +102,7 @@ struct ItemListView: View {
                                             ItemCellView(item: item)
                                         }
                                     }
+									.listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                                 }
                             }
                         }

@@ -24,15 +24,20 @@ struct SearchListView: View {
                     ItemCellView(item: item)
                 }
                 .onDelete(perform: deleteItems)
+				.listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
             .navigationTitle("Items Details")
             .searchable(
                 text: $searchText,
                 placement: .automatic,
                 prompt: "Search items")
-            .onChange(of: searchText) { _, _ in
+            .onChange(of: searchText, initial: true) { _, newValue in
+				guard !newValue.isEmpty else {
+					filterResult = items
+					return
+				}
                 filterResult = items.filter {item in
-                    item.title.localizedCaseInsensitiveContains(searchText)
+                    item.title.localizedCaseInsensitiveContains(newValue)
                 }
             }
         }
