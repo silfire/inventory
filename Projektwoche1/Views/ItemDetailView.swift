@@ -18,7 +18,8 @@ struct ItemDetailView: View {
     @State private var uiImage : UIImage? = nil
     
     @Query(sort: \Category.title) var categories: [Category]
-    
+	@Query(sort: \Location.name) var locations: [Location]
+
     var body: some View {
         VStack {
             Text(item.title)
@@ -63,7 +64,14 @@ struct ItemDetailView: View {
                         Text(category.title).tag(category as Category?)
                     }
                 }
-                
+				Picker("Ort", selection: $item.location) {
+					ForEach(locations, id: \.id) { location in
+						Text(location.name)
+							.tag(location)
+					}
+				}
+
+
                 DatePicker("Select date:", selection: $item.date, displayedComponents: .date)
             }
             .onAppear {

@@ -9,35 +9,44 @@ import SwiftUI
 import SwiftData
 
 struct LocationListView: View {
+	@Environment(\.modelContext) private var context
+	@Environment(\.editMode) private var editMode
 
-    @Query(sort: \Location.name) var locations: [Location]
-    @State private var showAddLocation = false
+	@Query(sort: \Location.name) var locations: [Location]
 
-    var body: some View {
-        NavigationStack {
-            List(locations) { location in
-                NavigationLink {
-                    EditLocationView(location: location)
-                } label: {
-                    Text(location.name)
-                }
-            }
-            .navigationTitle("Locations")
+	var body: some View {
+		NavigationStack {
+			List {
+				ForEach(locations) { location in
+					LocationCellView(location: location)
+				}
+				.onDelete { indexSet in
+					for index in indexSet {
+						context.delete(locations[index])
+					}
+				}
+			}
+			.toolbar {
+				ToolbarItem {
+					EditButton()
+				}
+				ToolbarItem {
+					Button {
+						context.insert(Location(name: ""))
+					} label: {
+						Image(systemName: "plus")
+					}
+				}
+			}
+			.animation(.default, value: locations)
+			.navigationTitle("Locations")
+		}
+	}
 
-            .toolbar {
-                Button {
-                    showAddLocation = true
-                } label: {
-                    Image(systemName: "plus")
-                }
-            }
 
-            .sheet(isPresented: $showAddLocation) {
-                AddLocationView()
-            }
-        }
-    }
 }
+
 #Preview {
     LocationListView()
+		.modelContainer(DataProvider.preview.container)
 }

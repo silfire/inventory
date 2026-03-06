@@ -13,13 +13,15 @@ struct AddItemView: View {
 	@Environment(\.dismiss) var dismiss
 	@Environment(\.modelContext) var context
 
-	@Query(sort: \Category.title) var itemTypes: [Category]
+	@Query(sort: \Category.title) var categories: [Category]
+	@Query(sort: \Location.name) var locations: [Location]
 
 	@State private var title : String = ""
 	@State private var quantity : Int = 1
 
 	@State private var selectedDate: Date = .now
-	@State private var selectedCategoryId : PersistentIdentifier?
+	@State private var selectedCategoryID : PersistentIdentifier?
+	@State private var selectedLocationID : PersistentIdentifier?
 
 	@State private var selectedImage : PhotosPickerItem? = nil
 	@State private var uiImage : UIImage? = nil
@@ -59,10 +61,16 @@ struct AddItemView: View {
 
 				TextField("Titel", text: $title).focused($titleFocus)
 
-				Picker("Kategorie", selection: $selectedCategoryId) {
-					ForEach(itemTypes, id: \.id) { category in
+				Picker("Kategorie", selection: $selectedCategoryID) {
+					ForEach(categories, id: \.id) { category in
 						Text(category.title)
 							.tag(category.id)
+					}
+				}
+				Picker("Ort", selection: $selectedLocationID) {
+					ForEach(locations, id: \.id) { location in
+						Text(location.name)
+							.tag(location.id)
 					}
 				}
 
@@ -83,10 +91,12 @@ struct AddItemView: View {
 			VStack {
 				Spacer()
 				Button {
-					let category = itemTypes.first { $0.id == selectedCategoryId }
+					let category = categories.first { $0.id == selectedCategoryID }
+					let location = locations.first { $0.id == selectedLocationID }
 					let item = Item(title: title,
 									count: quantity,
-									category: category)
+									category: category,
+									location: location)
 					item.date = selectedDate
 					item.imageData = imageData
 					context.insert(item)
@@ -124,8 +134,11 @@ struct AddItemView: View {
 			}
 		}
 		.onAppear {
-			if selectedCategoryId == nil {
-				selectedCategoryId = itemTypes.first?.id
+			if selectedCategoryID == nil {
+				selectedCategoryID = categories.first?.id
+			}
+			if selectedLocationID == nil {
+				selectedLocationID = locations.first?.id
 			}
 			titleFocus = true
 		}

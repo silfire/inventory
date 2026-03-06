@@ -41,6 +41,13 @@ class DataProvider {
 	}
 
 	func addExamples() {
+		let wohnzimmer = Location(name: "Wohnzimmmer")
+		mainContext.insert(wohnzimmer)
+		let kueche = Location(name: "Küche")
+		mainContext.insert(kueche)
+		let garage = Location(name: "Garage")
+		mainContext.insert(garage)
+
 		let book = Category(title: "Buch")
 		mainContext.insert(book)
 		let furniture = Category(title: "Möbel")
