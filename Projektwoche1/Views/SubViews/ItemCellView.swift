@@ -18,7 +18,7 @@ struct ItemCellView: View {
 			Text(item.title)
 			Spacer()
 			Text("\(item.quantity)")
-				.padding()
+				.frame(width: 34, height: 34)
 				.background(.quaternary)
 				.clipShape(.circle)
 
